@@ -18,11 +18,13 @@ class Player:
 
 class TicTacToe:
     def __init__(self, a, b, player1, player2, countOfCellForWin=3):
+        if a > 8 or b > 8 or countOfCellForWin > max(a, b):
+            raise Exception("Illegal arguments")
         self.a = a
         self.b = b
         self.field = [[Flag.NULL for j in range(a)] for i in range(b)]
-        self.player1 = Player(player1.name, Flag.NOUGHT)
-        self.player2 = Player(player2.name, Flag.CROSS)
+        self.player1 = Player(player1.name, Flag.CROSS)
+        self.player2 = Player(player2.name, Flag.NOUGHT)
         self.turn = self.player1
         self.notTurn = self.player2
         self.countOfCellForWin = countOfCellForWin
@@ -35,11 +37,12 @@ class TicTacToe:
         return True
 
     def isWin(self):
+        drawFlag = True
         for y in range(self.b):
             for x in range(self.a):
                 if self.field[y][x] == Flag.NULL:
+                    drawFlag = False
                     continue
-
                 if self.isHorizontalLineWin(x, y) != Flag.NULL:
                     return self.isHorizontalLineWin(x, y)
                 if self.isVerticalLineWin(x, y) != Flag.NULL:
@@ -48,7 +51,7 @@ class TicTacToe:
                     return self.isDiagonalsLeftLineWin(x, y)
                 if self.isDiagonalsRightLineWin(x, y) != Flag.NULL:
                     return self.isDiagonalsRightLineWin(x, y)
-        return Flag.NULL
+        return drawFlag if drawFlag else Flag.NULL
 
     def isHorizontalLineWin(self, x, y):
         mark = self.field[y][x]
@@ -124,29 +127,38 @@ class TicTacToe:
             self.checkTurn()
         status = self.isWin()
         self.drawField()
-        if status == Flag.NOUGHT:
-            print(self.player1.name + " is WIN!")
-        else:
+        if status:
+            print("Draw!")
+        elif status == Flag.NOUGHT:
             print(self.player2.name + " is WIN!")
+        else:
+            print(self.player1.name + " is WIN!")
 
     def checkTurn(self):
         print(self.turn.name + ": Your turn! Input X and Y")
         x, y = input().split()
-        if self.playerTurn(ABC[x], int(y) - 1, self.turn, self.notTurn) is None:
+        if self.playerTurn(ABC[x], int(y) - 1, self.turn, self.notTurn) is None or \
+                ABC.get(x) is None or int(y) < 0 or int(y) > self.b:
             print(self.turn.name + ": Your turn is wrong. Tru again")
             self.checkTurn()
 
     def drawField(self):
-        print(" |", end='')
+        print("+---" * (self.a + 1), end='')
+        print("+\n|ᵔᴥᵔ|", end='')
         for i in range(self.a):
-            print(ABCForDraw[i] + "|", end='')
+            print(" " + ABCForDraw[i] + " |", end='')
+        print()
+        print("+---" * (self.a + 1), end='')
+        print('+', end='')
         for i in range(self.b):
-            print('\n' + str(i + 1) + '|', end='')
+            print('\n| ' + str(i + 1) + ' |', end='')
             for j in self.field[i]:
                 if j == Flag.NOUGHT:
-                    print('O|', end='')
+                    print(' O |', end='')
                 elif j == Flag.CROSS:
-                    print('X|', end='')
+                    print(' X |', end='')
                 else:
-                    print(' |', end='')
+                    print('   |', end='')
         print()
+        print("+---" * (self.a + 1), end='')
+        print("+")
