@@ -31,6 +31,7 @@ class TicTacToe:
             return None
         self.field[y][x] = playerTurn.mark
         self.turn, self.notTurn = playerNotTurn, playerTurn
+        return True
 
     def isWin(self):
         for y in range(self.b):
@@ -52,6 +53,8 @@ class TicTacToe:
         mark = self.field[y][x]
         result = 0
         for cell in self.field[y]:
+            if result >= 3:
+                return mark
             if cell == mark:
                 result += 1
             else:
@@ -64,6 +67,8 @@ class TicTacToe:
         mark = self.field[y][x]
         result = 0
         for cell in self.field:
+            if result >= 3:
+                return mark
             if cell[x] == mark:
                 result += 1
             else:
@@ -80,6 +85,8 @@ class TicTacToe:
             y -= 1
 
         while (x < (self.a - 1)) and (y < (self.b - 1)):
+            if result >= 3:
+                return mark
             if self.field[y][x] == mark:
                 result += 1
             else:
@@ -98,6 +105,8 @@ class TicTacToe:
             y += 1
 
         while x > 0 and y > 0:
+            if result >= 3:
+                return mark
             if self.field[y][x] == mark:
                 result += 1
             else:
@@ -111,15 +120,20 @@ class TicTacToe:
     def game(self):
         while self.isWin() == Flag.NULL:
             self.drawField()
-            print(self.turn.name + ": Your turn! Input X and Y")
-            x, y = input().split()
-            self.playerTurn(ABC[x], int(y) - 1, self.turn, self.notTurn)
+            self.checkTurn()
         status = self.isWin()
         self.drawField()
         if status == Flag.NOUGHT:
             print(self.player1.name + " is WIN!")
         else:
             print(self.player2.name + " is WIN!")
+
+    def checkTurn(self):
+        print(self.turn.name + ": Your turn! Input X and Y")
+        x, y = input().split()
+        if self.playerTurn(ABC[x], int(y) - 1, self.turn, self.notTurn) is None:
+            print(self.turn.name + ": Your turn is wrong. Tru again")
+            self.checkTurn()
 
     def drawField(self):
         print(" |", end='')
