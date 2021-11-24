@@ -11,6 +11,7 @@ class Flag(Enum):
     NULL = 0
     NOUGHT = 1
     CROSS = 2
+    DRAW = 3
 
 
 class Player:
@@ -54,7 +55,7 @@ class TicTacToe:
                     return self.isDiagonalsLeftLineWin(x, y)
                 if self.isDiagonalsRightLineWin(x, y) != Flag.NULL:
                     return self.isDiagonalsRightLineWin(x, y)
-        return drawFlag if drawFlag else Flag.NULL
+        return Flag.DRAW if drawFlag else Flag.NULL
 
     def isHorizontalLineWin(self, x, y):
         mark = self.field[y][x]
@@ -91,7 +92,7 @@ class TicTacToe:
             x -= 1
             y -= 1
 
-        while (x < (self.a - 1)) and (y < (self.b - 1)):
+        while (x < self.a) and (y < self.b):
             if result >= self.countOfCellForWin:
                 return mark
             if self.field[y][x] == mark:
@@ -107,11 +108,11 @@ class TicTacToe:
     def isDiagonalsRightLineWin(self, x, y):
         mark = self.field[y][x]
         result = 0
-        while (x < (self.a - 1)) and (y < (self.b - 1)):
+        while (x < (self.a - 1)) and (y > 0):
             x += 1
-            y += 1
+            y -= 1
 
-        while x > 0 and y > 0:
+        while x >= 0 and (y < self.b):
             if result >= self.countOfCellForWin:
                 return mark
             if self.field[y][x] == mark:
@@ -119,7 +120,7 @@ class TicTacToe:
             else:
                 result = 0
             x -= 1
-            y -= 1
+            y += 1
         if result >= self.countOfCellForWin:
             return mark
         return Flag.NULL
@@ -130,7 +131,7 @@ class TicTacToe:
             self.checkTurn()
         status = self.isWin()
         self.drawField()
-        if status:
+        if status == Flag.DRAW:
             print("Draw!")
         elif status == Flag.NOUGHT:
             print(self.player2.name + " is WIN!")
