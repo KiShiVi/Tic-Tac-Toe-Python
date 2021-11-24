@@ -17,7 +17,7 @@ class Player:
 
 
 class TicTacToe:
-    def __init__(self, a, b, player1, player2):
+    def __init__(self, a, b, player1, player2, countOfCellForWin=3):
         self.a = a
         self.b = b
         self.field = [[Flag.NULL for j in range(a)] for i in range(b)]
@@ -25,6 +25,7 @@ class TicTacToe:
         self.player2 = Player(player2.name, Flag.CROSS)
         self.turn = self.player1
         self.notTurn = self.player2
+        self.countOfCellForWin = countOfCellForWin
 
     def playerTurn(self, x, y, playerTurn, playerNotTurn):
         if self.field[y][x] != Flag.NULL:
@@ -53,13 +54,13 @@ class TicTacToe:
         mark = self.field[y][x]
         result = 0
         for cell in self.field[y]:
-            if result >= 3:
+            if result >= self.countOfCellForWin:
                 return mark
             if cell == mark:
                 result += 1
             else:
                 result = 0
-        if result >= 3:
+        if result >= self.countOfCellForWin:
             return mark
         return Flag.NULL
 
@@ -67,13 +68,13 @@ class TicTacToe:
         mark = self.field[y][x]
         result = 0
         for cell in self.field:
-            if result >= 3:
+            if result >= self.countOfCellForWin:
                 return mark
             if cell[x] == mark:
                 result += 1
             else:
                 result = 0
-        if result >= 3:
+        if result >= self.countOfCellForWin:
             return mark
         return Flag.NULL
 
@@ -85,7 +86,7 @@ class TicTacToe:
             y -= 1
 
         while (x < (self.a - 1)) and (y < (self.b - 1)):
-            if result >= 3:
+            if result >= self.countOfCellForWin:
                 return mark
             if self.field[y][x] == mark:
                 result += 1
@@ -93,7 +94,7 @@ class TicTacToe:
                 result = 0
             x += 1
             y += 1
-        if result >= 3:
+        if result >= self.countOfCellForWin:
             return mark
         return Flag.NULL
 
@@ -105,7 +106,7 @@ class TicTacToe:
             y += 1
 
         while x > 0 and y > 0:
-            if result >= 3:
+            if result >= self.countOfCellForWin:
                 return mark
             if self.field[y][x] == mark:
                 result += 1
@@ -113,7 +114,7 @@ class TicTacToe:
                 result = 0
             x -= 1
             y -= 1
-        if result >= 3:
+        if result >= self.countOfCellForWin:
             return mark
         return Flag.NULL
 
