@@ -154,7 +154,7 @@ class TicTacToe:
         print("+---" * (self.a + 1), end='')
         print('+', end='')
         for i in range(self.b):
-            if i + 1 < 10:
+            if (i + 1) < 10:
                 print('\n| ' + str(i + 1) + ' |', end='')
             else:
                 print('\n| ' + str(i + 1) + '|', end='')
@@ -162,7 +162,6 @@ class TicTacToe:
                 if j == Flag.NOUGHT:
                     print(' O |', end='')
                 elif j == Flag.CROSS:
-                    print(' X |', end='')
                     print(' X |', end='')
                 else:
                     print('   |', end='')
