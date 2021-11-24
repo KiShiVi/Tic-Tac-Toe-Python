@@ -1,7 +1,10 @@
 from enum import Enum
 
-ABC = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
-ABCForDraw = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+ABC = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K': 10, 'L': 11, 'M': 12,
+       'N': 13, '0': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18, 'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24,
+       'Z': 25}
+ABCForDraw = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+              'V', 'W', 'X', 'Y', 'Z']
 
 
 class Flag(Enum):
@@ -18,7 +21,7 @@ class Player:
 
 class TicTacToe:
     def __init__(self, a, b, player1, player2, countOfCellForWin=3):
-        if a > 8 or b > 8 or countOfCellForWin > max(a, b):
+        if a > 26 or b > 26 or countOfCellForWin > max(a, b):
             raise Exception("Illegal arguments")
         self.a = a
         self.b = b
