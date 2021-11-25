@@ -2,7 +2,7 @@
 
 ## Game
 
-![Game](https://github.com/KiShiVi/Tic-Tac-Toe-Python/blob/main/Media/gameExample.gif)
+![Game](https://github.com/KiShiVi/Tic-Tac-Toe-Python/blob/main/media/gameExample.gif)
 
 ## Description
 
