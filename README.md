@@ -14,25 +14,26 @@ The players themselves determine the size of the field and the number of cells f
 
 ## API
 
-###TicTacToe constructor
+### TicTacToe constructor
 ```TicTacToe(a, b, player1, player2, countOfCellForWin)``` - constructor for creating a __TicTacToe__ object  
 
-_a_ __:Int__ - field width _(1..26)_
+___a :Int___ - field width _(1..26)_
 
-_b_ __:Int__ - field height _(1..26)_
+___b :Int___ - field height _(1..26)_
 
-_player1_ __:Player__ - first player
+___player1 :Player___ - first player
 
-_player2_ __:Player__ - second player
+___player2 :Player___ - second player
 
-_countOfCellForWin_ __:Int__ - number of cells to win _(Default: 3)_
+___countOfCellForWin :Int___ - number of cells to win _(Default: 3)_
 
-###Player constructor
+### Player constructor
+
 ```Player(name)``` - constructor for creating a __Player__ object 
 
-_name_ __:String__ - player name
+___name :String___ - player name
 
-###API for the game
+### API for the game
 
 ```TicTacToeObj.game()``` - launches the game
 
